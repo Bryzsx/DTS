@@ -1,0 +1,17 @@
+Started development server: http://localhost:3000
+<-- POST /api/auth/login
+--> POST /api/auth/login [31m500[0m 33ms
+<-- POST /api/auth/login
+--> POST /api/auth/login [31m500[0m 7ms
+<-- POST /api/auth/login
+--> POST /api/auth/login [31m500[0m 7ms
+<-- POST /api/auth/login
+--> POST /api/auth/login [31m500[0m 5ms
+<-- POST /api/auth/login
+--> POST /api/auth/login [31m500[0m 6ms
+<-- GET /api/auth/me
+--> GET /api/auth/me [33m401[0m 1ms
+<-- GET /api/auth/me
+--> GET /api/auth/me [33m401[0m 0ms
+<-- POST /api/auth/login
+--> POST /api/auth/login [31m500[0m 7ms
