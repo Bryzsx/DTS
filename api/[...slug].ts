@@ -1,5 +1,5 @@
 /**
- * Vercel serverless entrypoint.
+ * Vercel serverless catch-all entrypoint for /api/*
  *
  * Vercel discovers this file for the Node.js runtime and serves it as
  * `/api/*`. In development the same app runs from `apps/api/src/index.ts`,

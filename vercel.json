@@ -1,11 +1,12 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "bun run build",
+  "installCommand": "bun install",
   "outputDirectory": "apps/web/dist",
   "framework": null,
   "packageManager": "bun@1.1.0",
   "functions": {
-    "api/index.ts": {
+    "api/[...slug].ts": {
       "maxDuration": 60
     },
     "api/health.ts": {
@@ -15,9 +16,6 @@
       "maxDuration": 10
     }
   },
-  "rewrites": [
-    { "source": "/api/:path*", "destination": "/api/index" }
-  ],
   "headers": [
     {
       "source": "/assets/(.*)",
