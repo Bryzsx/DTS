@@ -5,15 +5,12 @@
   "framework": null,
   "functions": {
     "api/index.ts": {
-      "runtime": "@vercel/node@5",
       "maxDuration": 30
     }
   },
   "rewrites": [
-    {
-      "source": "/((?!api/).*)",
-      "destination": "/index.html"
-    }
+    { "source": "/api/:path*", "destination": "/api/:path*" },
+    { "source": "/:path*", "destination": "/index.html" }
   ],
   "headers": [
     {
