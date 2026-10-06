@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+.vercel
+
+# Secrets. .env.example is deliberately re-included below so the template is
+# committed while real secrets never are.
+.env
+.env.*
+!.env.example
+*.keystore
+*.jks
+
+# Local data: attachments fall back to disk when BLOB_READ_WRITE_TOKEN is unset,
+# and PGlite writes database directories.
+uploads/
+data/
+.tmp-*
+
+# Logs
+*.log
+server.err
+
+# Tooling
+.obsidian/
+test-results/
+playwright-report/
+
+# Not part of the DTS.

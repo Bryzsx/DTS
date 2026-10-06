@@ -1,0 +1,427 @@
+/* ==========================================================================
+   Document Tracking System — global styles
+
+   Design intent: an official records system, not a consumer SaaS product.
+   Navy carries the identity, gold appears only as an accent (active nav rule,
+   seal, key figures), and no green is used anywhere so that "complete" is
+   never confused with "approved".
+
+   Colour values live as CSS variables so the dark theme is a variable swap
+   rather than a second set of utility classes.
+   ========================================================================== */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --c-white: 255 255 255;
+
+    --c-navy-50: 240 245 251;
+    --c-navy-100: 222 233 246;
+    --c-navy-200: 199 217 238;
+    --c-navy-300: 157 189 224;
+    --c-navy-400: 100 148 200;
+    --c-navy-500: 56 116 180;
+    --c-navy-600: 33 89 145;
+    --c-navy-700: 22 66 108;
+    --c-navy-800: 15 48 82;
+    --c-navy-900: 11 37 69;
+    --c-navy-950: 5 20 41;
+
+    --c-gold-100: 253 243 219;
+    --c-gold-200: 247 228 176;
+    --c-gold-300: 240 208 133;
+    --c-gold-400: 219 176 86;
+    --c-gold-500: 184 134 11;
+    --c-gold-600: 146 105 8;
+    --c-gold-700: 102 74 8;
+
+    --c-slate-50: 248 250 252;
+    --c-slate-100: 241 245 249;
+    --c-slate-200: 226 232 240;
+    --c-slate-300: 203 213 225;
+    --c-slate-400: 148 163 184;
+    --c-slate-500: 100 116 139;
+    --c-slate-600: 71 85 105;
+    --c-slate-700: 51 65 85;
+    --c-slate-800: 30 41 59;
+    --c-slate-900: 15 23 42;
+    --c-slate-950: 2 6 23;
+
+    --c-amber-50: 255 251 235;
+    --c-amber-100: 254 243 199;
+    --c-amber-200: 254 229 160;
+    --c-amber-500: 217 119 6;
+    --c-amber-600: 180 83 9;
+    --c-amber-700: 146 64 14;
+    --c-amber-800: 116 54 14;
+    --c-amber-900: 84 45 12;
+
+    --c-red-50: 254 242 242;
+    --c-red-100: 254 226 226;
+    --c-red-200: 254 202 202;
+    --c-red-500: 220 38 38;
+    --c-red-600: 185 28 28;
+    --c-red-700: 153 27 27;
+    --c-red-800: 127 29 29;
+    --c-red-900: 69 10 10;
+
+    --c-blue-50: 239 246 255;
+    --c-blue-100: 219 234 254;
+    --c-blue-200: 191 219 254;
+    --c-blue-500: 37 99 235;
+    --c-blue-600: 29 78 216;
+    --c-blue-700: 29 64 175;
+    --c-blue-800: 30 58 138;
+    --c-blue-900: 30 41 77;
+  }
+
+  .dark {
+    --c-white: 255 255 255;
+    --c-navy-50: 20 33 55;
+    --c-navy-100: 24 40 66;
+    --c-navy-200: 28 50 80;
+    --c-navy-300: 40 70 108;
+    --c-navy-400: 70 110 158;
+    --c-navy-500: 120 160 205;
+    --c-navy-600: 175 205 235;
+    --c-navy-700: 205 225 245;
+    --c-navy-800: 225 236 248;
+    --c-navy-900: 240 246 252;
+    --c-navy-950: 248 250 252;
+
+    --c-gold-100: 61 49 17;
+    --c-gold-200: 90 72 24;
+    --c-gold-300: 226 193 104;
+    --c-gold-400: 232 200 118;
+    --c-gold-500: 226 186 92;
+    --c-gold-600: 214 172 80;
+    --c-gold-700: 200 158 70;
+
+    --c-slate-50: 12 20 34;
+    --c-slate-100: 19 29 46;
+    --c-slate-200: 27 39 58;
+    --c-slate-300: 45 60 82;
+    --c-slate-400: 82 100 125;
+    --c-slate-500: 130 148 171;
+    --c-slate-600: 163 180 200;
+    --c-slate-700: 195 208 224;
+    --c-slate-800: 220 230 240;
+    --c-slate-900: 238 244 250;
+    --c-slate-950: 248 250 252;
+  }
+
+  * {
+    border-color: theme("colors.slate.200");
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-slate-50 font-sans text-slate-700 antialiased dark:bg-slate-950 dark:text-slate-200;
+    font-feature-settings: "cv02", "cv03", "cv04", "ss01";
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply text-slate-900 dark:text-white;
+    text-wrap: balance;
+  }
+
+  /* A single visible focus treatment for every interactive element. */
+  :where(a, button, input, select, textarea, [tabindex]):focus-visible {
+    @apply outline-none ring-2 ring-navy-500 ring-offset-2 ring-offset-white dark:ring-offset-slate-950;
+  }
+
+  ::selection {
+    @apply bg-navy-200 text-navy-900;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* ── Layout ───────────────────────────────────────────────────────────── */
+
+  .card {
+    @apply rounded-2xl bg-white shadow-card ring-1 ring-slate-900/[0.06] dark:bg-slate-900 dark:ring-white/10;
+  }
+
+  .page-eyebrow {
+    @apply text-[11px] font-bold uppercase tracking-[0.14em] text-navy-500 dark:text-navy-300;
+  }
+
+  .page-title {
+    @apply text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-[28px];
+  }
+
+  .page-subtitle {
+    @apply mt-1 text-sm text-slate-500 dark:text-slate-400;
+  }
+
+  /* ── Buttons ──────────────────────────────────────────────────────────── */
+
+  .btn {
+    @apply inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition-all duration-150 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .btn-primary {
+    @apply btn bg-navy-800 text-white shadow-soft hover:bg-navy-900 active:translate-y-px dark:bg-navy-700 dark:hover:bg-navy-600;
+  }
+
+  .btn-secondary {
+    @apply btn bg-white text-slate-700 shadow-soft ring-1 ring-inset ring-slate-900/10 hover:bg-slate-50 active:translate-y-px dark:bg-slate-800 dark:text-slate-200 dark:ring-white/15 dark:hover:bg-slate-700;
+  }
+
+  .btn-ghost {
+    @apply btn text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800;
+  }
+
+  .btn-danger {
+    @apply btn bg-red-600 text-white shadow-soft hover:bg-red-700 active:translate-y-px;
+  }
+
+  .btn-sm {
+    @apply px-3 py-1.5 text-xs;
+  }
+
+  /* ── Form controls ────────────────────────────────────────────────────── */
+
+  .label {
+    @apply mb-1.5 block text-[13px] font-semibold text-slate-700 dark:text-slate-300;
+  }
+
+  .input {
+    @apply w-full rounded-xl bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-soft ring-1 ring-inset ring-slate-900/10 transition-shadow placeholder:text-slate-400 focus:ring-2 focus:ring-navy-500/40 disabled:bg-slate-50 disabled:text-slate-400 dark:bg-slate-800 dark:text-slate-100 dark:ring-white/15 dark:disabled:bg-slate-900;
+  }
+
+  select.input {
+    @apply cursor-pointer pr-9;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%2364748b'%3E%3Cpath fill-rule='evenodd' d='M5.23 7.21a.75.75 0 011.06.02L10 11.19l3.71-3.96a.75.75 0 111.08 1.04l-4.25 4.53a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z' clip-rule='evenodd'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.6rem center;
+    background-size: 1.1em;
+  }
+
+  .hint {
+    @apply mt-1.5 text-xs text-slate-500 dark:text-slate-400;
+  }
+
+  .field-error {
+    @apply mt-1.5 text-xs font-medium text-red-600 dark:text-red-400;
+  }
+
+  /* ── Feedback ─────────────────────────────────────────────────────────── */
+
+  .alert-error {
+    @apply rounded-xl bg-red-50 px-3.5 py-3 text-sm font-medium text-red-800 ring-1 ring-inset ring-red-600/15 dark:bg-red-950/40 dark:text-red-200 dark:ring-red-500/20;
+  }
+
+  .alert-success {
+    @apply rounded-xl bg-navy-50 px-3.5 py-3 text-sm font-medium text-navy-800 ring-1 ring-inset ring-navy-600/15 dark:bg-navy-900/40 dark:text-navy-200;
+  }
+
+  .alert-warning {
+    @apply rounded-xl bg-amber-50 px-3.5 py-3 text-sm font-medium text-amber-900 ring-1 ring-inset ring-amber-600/20 dark:bg-amber-950/40 dark:text-amber-200;
+  }
+
+  /* ── Badges ───────────────────────────────────────────────────────────── */
+
+  .badge {
+    @apply inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-0.5 text-[11px] font-semibold ring-1 ring-inset;
+  }
+
+  /* Status → colour mapping. "Completed"/"Closed" are slate, not green. */
+  .badge-received {
+    @apply badge bg-blue-50 text-blue-700 ring-blue-600/20 dark:bg-blue-950/50 dark:text-blue-200;
+  }
+  .badge-review {
+    @apply badge bg-amber-50 text-amber-800 ring-amber-600/20 dark:bg-amber-950/50 dark:text-amber-200;
+  }
+  .badge-rd {
+    @apply badge bg-navy-50 text-navy-700 ring-navy-600/20 dark:bg-navy-900/50 dark:text-navy-200;
+  }
+  .badge-active {
+    @apply badge bg-navy-100 text-navy-800 ring-navy-700/20 dark:bg-navy-800/60 dark:text-navy-100;
+  }
+  .badge-done {
+    @apply badge bg-slate-100 text-slate-600 ring-slate-900/10 dark:bg-slate-800 dark:text-slate-300;
+  }
+  .badge-overdue {
+    @apply badge bg-red-50 text-red-700 ring-red-600/20 dark:bg-red-950/50 dark:text-red-200;
+  }
+  .badge-urgent {
+    @apply badge bg-red-50 text-red-700 ring-red-600/20 dark:bg-red-950/50 dark:text-red-200;
+  }
+  .badge-high {
+    @apply badge bg-amber-50 text-amber-800 ring-amber-600/20 dark:bg-amber-950/50 dark:text-amber-200;
+  }
+  .badge-routine {
+    @apply badge bg-slate-100 text-slate-600 ring-slate-900/10 dark:bg-slate-800 dark:text-slate-300;
+  }
+
+  /* ── Tables ───────────────────────────────────────────────────────────── */
+
+  .table-header {
+    @apply whitespace-nowrap px-4 py-3 text-left text-[11px] font-semibold uppercase tracking-[0.08em] text-slate-500 dark:text-slate-400;
+  }
+
+  .table-cell {
+    @apply px-4 py-3.5 text-sm text-slate-800 dark:text-slate-200;
+  }
+
+  .table-sort {
+    @apply inline-flex items-center gap-1 transition-colors hover:text-navy-700 dark:hover:text-navy-200;
+  }
+
+  /* ── Navigation ───────────────────────────────────────────────────────── */
+
+  .nav-item {
+    @apply font-medium;
+  }
+
+  /* ── Key/value grid used by the record sheet and detail view ──────────── */
+
+  .kv-label {
+    @apply text-[11px] font-semibold uppercase tracking-[0.06em] text-slate-500 dark:text-slate-400;
+  }
+
+  .kv-value {
+    @apply mt-0.5 text-sm text-slate-900 dark:text-slate-100;
+  }
+
+  /* ── Loading skeleton ─────────────────────────────────────────────────── */
+
+  .skeleton {
+    @apply animate-pulse rounded-lg bg-slate-200/70 dark:bg-slate-700/50;
+  }
+}
+
+@layer components {
+  /* The official record sheet and the register. Only visible in print. */
+  .print-sheet {
+    @apply bg-white text-slate-900;
+  }
+
+  .print-letterhead {
+    @apply flex items-start justify-between gap-6 border-b-2 border-navy-800 pb-4;
+  }
+
+  .print-table {
+    @apply w-full border-collapse text-[10px];
+  }
+
+  .print-table th,
+  .print-table td {
+    @apply border border-slate-400 px-1.5 py-1 align-top;
+  }
+
+  .print-table th {
+    @apply bg-slate-100 text-left font-bold uppercase tracking-wide;
+  }
+
+  .print-block {
+    @apply mb-3 break-inside-avoid;
+  }
+
+  .field-block {
+    @apply border border-slate-400 p-2;
+  }
+
+  .field-block-label {
+    @apply mb-1 text-[9px] font-bold uppercase tracking-[0.08em] text-slate-600;
+  }
+
+  .field-block-value {
+    @apply min-h-[1.25rem] text-[11px] leading-snug;
+  }
+}
+
+@layer utilities {
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: theme("colors.slate.300") transparent;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* ==========================================================================
+   Print — the register and record sheet must come out clean on paper.
+   Everything from the app chrome is dropped.
+   ========================================================================== */
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 12mm 10mm;
+  }
+
+  html,
+  body {
+    background: #fff !important;
+    color: #000 !important;
+    font-size: 10pt;
+  }
+
+  .no-print,
+  nav,
+  aside,
+  header,
+  footer {
+    display: none !important;
+  }
+
+  main {
+    padding: 0 !important;
+    max-width: none !important;
+  }
+
+  .card {
+    box-shadow: none !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Keep a table's header row on every printed page. */
+  .print-table thead {
+    display: table-header-group;
+  }
+
+  .print-table tr {
+    break-inside: avoid;
+  }
+
+  /* Show the browser's own header/footer box: printed-at timestamp. */
+  .print-only {
+    display: block !important;
+  }
+}
+
+.print-only {
+  display: none;
+}

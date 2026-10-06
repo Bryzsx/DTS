@@ -1,0 +1,14 @@
+# Normalize line endings to LF in the repository so the same file is byte-identical
+# on Windows and Linux. Without this, Windows checkouts rewrite every file to CRLF
+# and produce spurious whole-file diffs.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.pdf binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.zip binary

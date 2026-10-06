@@ -1,0 +1,46 @@
+{
+  "name": "dts",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev:api": "bun run --cwd apps/api dev",
+    "dev:web": "bun run --cwd apps/web dev",
+    "dev": "bun run dev:api & bun run dev:web",
+    "db:generate": "bun run --cwd apps/api db:generate",
+    "db:migrate": "bun run --cwd apps/api db:migrate",
+    "db:studio": "bun run --cwd apps/api db:studio",
+    "seed:admin": "bun run --cwd apps/api seed:admin",
+    "typecheck": "bun run --cwd apps/api typecheck & bun run --cwd apps/web typecheck",
+    "test": "bun run --cwd apps/api test & bun run --cwd apps/web test",
+    "build": "bun run --cwd apps/web build",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "check": "bun run lint && bun run format:check"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.2",
+    "@types/node": "^26.1.2",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "eslint": "^10.8.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.4",
+    "jsdom": "^30.0.1",
+    "prettier": "^3.9.6",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.6.0",
+    "typescript-eslint": "^8.67.0",
+    "vite": "^7.0.0",
+    "vitest": "^4.1.11"
+  },
+  "dependencies": {}
+}

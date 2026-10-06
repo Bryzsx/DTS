@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0B2545" />
+    <title>You're offline - Document Tracking System</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        font-family:
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          "Segoe UI",
+          Roboto,
+          "Helvetica Neue",
+          Arial,
+          sans-serif;
+        background: #f6f7fb;
+        color: #0f172a;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        -webkit-font-smoothing: antialiased;
+      }
+      .card {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 20px;
+        padding: 48px 40px;
+        max-width: 400px;
+        width: 100%;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+      }
+      .mark {
+        width: 64px;
+        height: 64px;
+        margin: 0 auto 24px;
+        background: #0b2545;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .mark svg {
+        width: 40px;
+        height: 40px;
+      }
+      h1 {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 8px;
+        letter-spacing: -0.01em;
+      }
+      p {
+        font-size: 14px;
+        line-height: 1.6;
+        color: #64748b;
+        margin-bottom: 24px;
+      }
+      button {
+        background: #0b2545;
+        color: #fff;
+        border: 0;
+        border-radius: 10px;
+        padding: 10px 20px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.15s ease;
+      }
+      button:hover {
+        background: #08193a;
+      }
+      button:active {
+        transform: translateY(1px);
+      }
+      .status {
+        margin-top: 16px;
+        font-size: 12px;
+        color: #94a3b8;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="mark" aria-hidden="true">
+        <svg viewBox="0 0 100 100" fill="none">
+          <path
+            d="M 37.5 25 L 37.5 75 A 25 25 0 0 0 37.5 25"
+            fill="none"
+            stroke="#fff"
+            stroke-width="22"
+            stroke-linecap="round"
+          />
+        </svg>
+      </div>
+      <h1>You're offline</h1>
+      <p>
+        Check your internet connection and try again. Your saved data will still be here when you're
+        back online.
+      </p>
+      <button id="retry" type="button">Try again</button>
+      <div id="status" class="status" role="status"></div>
+    </div>
+    <script>
+      var btn = document.getElementById("retry")
+      var status = document.getElementById("status")
+      btn.addEventListener("click", function () {
+        status.textContent = "Checking connection..."
+        if (navigator.onLine) {
+          window.location.reload()
+        } else {
+          status.textContent = "Still offline. This page will retry automatically."
+        }
+      })
+      window.addEventListener("online", function () {
+        window.location.reload()
+      })
+    </script>
+  </body>
+</html>

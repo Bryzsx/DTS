@@ -1,0 +1,14 @@
+{
+  "name": "Document Tracking System",
+  "short_name": "DTS",
+  "description": "Official document tracking and records management system.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0B2545",
+  "theme_color": "#0B2545",
+  "icons": [
+    { "src": "/seal.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
