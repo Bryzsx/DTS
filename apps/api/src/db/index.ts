@@ -242,38 +242,3 @@ export async function getDriverAsync(): Promise<Driver> {
   cachedDriver = await driverPromise
   return cachedDriver
 }
-
-async function createPostgresDriver(): Promise<Driver> {
-  const url = process.env.DATABASE_URL
-  if (!url) {
-    throw new Error(
-      "DATABASE_URL is not set. Copy apps/api/.env.example to apps/api/.env and paste your Neon pooled URL.",
-    )
-  }
-  // prepare: false avoids prepared statements which can cause issues with PgBouncer
-  const client = postgres(url, { prepare: false })
-
-  const raw: RawExecutor = {
-    async script(text: string) {
-      await client.unsafe(text)
-    },
-    async rows<T>(text: string, params: unknown[] = []) {
-      return (await client.unsafe(text, params as never[])) as T[]
-    },
-    async transaction<T>(fn: (tx: RawExecutor) => Promise<T>) {
-      return client.begin(async (tx) => {
-        const scoped: RawExecutor = {
-          script: async (text: string) => {
-            await tx.unsafe(text)
-          },
-          rows: async <R>(text: string, params: unknown[] = []) =>
-            (await tx.unsafe(text, params as never[])) as R[],
-          transaction: async <R>(inner: (t: RawExecutor) => Promise<R>) => inner(scoped),
-        }
-        return fn(scoped)
-      }) as Promise<T>
-    },
-  }
-
-  return { db: drizzlePostgresJs(client, { schema }), raw, close: () => client.end() }
-}
