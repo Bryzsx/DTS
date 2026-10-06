@@ -34,7 +34,7 @@ export default function Login() {
       <div className="flex flex-col justify-center bg-white px-6 py-12 lg:w-[46%] lg:px-16">
         <div className="mx-auto w-full max-w-sm">
           <div className="mb-8 flex items-center gap-3">
-            <img src="/seal.svg" alt="" className="h-12 w-12" aria-hidden="true" />
+            <img src="/seal.png" alt="" className="h-12 w-12" aria-hidden="true" />
             <div className="leading-tight">
               <h1 className="text-lg font-extrabold tracking-tight text-navy-900">
                 Document Tracking System

@@ -9,6 +9,6 @@
   "background_color": "#0B2545",
   "theme_color": "#0B2545",
   "icons": [
-    { "src": "/seal.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+    { "src": "/seal.png", "sizes": "any", "type": "image/png", "purpose": "any maskable" }
   ]
 }

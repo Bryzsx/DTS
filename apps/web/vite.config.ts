@@ -27,7 +27,7 @@ export default defineConfig({
     }),
     VitePWA({
       registerType: "autoUpdate",
-      includeAssets: ["seal.svg", "offline.html", "fonts/*.woff2"],
+      includeAssets: ["seal.png", "offline.html", "fonts/*.woff2"],
       manifest: {
         name: "Document Tracking System",
         short_name: "DTS",
@@ -47,8 +47,8 @@ export default defineConfig({
         handle_links: "preferred",
         launch_handler: { client_mode: "navigate-existing" },
         icons: [
-          { src: "/seal.svg", sizes: "any", type: "image/svg+xml", purpose: "any" },
-          { src: "/seal.svg", sizes: "any", type: "image/svg+xml", purpose: "maskable" },
+{ src: "/seal.png", sizes: "any", type: "image/png", purpose: "any" },
+            { src: "/seal.png", sizes: "any", type: "image/png", purpose: "maskable" },
         ],
       },
       workbox: {
