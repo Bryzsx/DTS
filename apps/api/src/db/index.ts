@@ -171,7 +171,53 @@ function initDriverSync(): Driver | null {
   return null
 }
 
-// Initialize synchronously for tests; leave null for production (lazy async)
+// Initialize synchronously for pglite (tests and local dev)
+if (process.env.DTS_DB_DRIVER === "pglite") {
+  const { PGlite } = require("@electric-sql/pglite")
+  const { drizzle } = require("drizzle-orm/pglite")
+
+  const path = process.env.PGLITE_PATH
+  const resolved = path
+    ? path.includes("/") || path.includes("\\")
+      ? path
+      : resolve(apiRoot, path)
+    : undefined
+  const client = resolved ? new PGlite(resolved) : new PGlite()
+
+  const raw: RawExecutor = {
+    async script(text: string) {
+      await client.exec(text)
+    },
+    async rows<T>(text: string, params: unknown[] = []) {
+      const res = await client.query<T>(text, params as never[])
+      return (res.rows ?? []) as T[]
+    },
+    async transaction<T>(fn: (tx: RawExecutor) => Promise<T>) {
+      return client.transaction(async (tx) => {
+        const scoped: RawExecutor = {
+          async script(text: string) {
+            await tx.exec(text)
+          },
+          async rows<R>(text: string, params: unknown[] = []) {
+            const res = await tx.query<R>(text, params as never[])
+            return (res.rows ?? []) as R[]
+          },
+          async transaction<R>(inner: (t: RawExecutor) => Promise<R>) {
+            return inner(scoped)
+          },
+        }
+        return fn(scoped)
+      }) as Promise<T>
+    },
+  }
+
+  cachedDriver = {
+    db: drizzle(client, { schema }) as unknown as Database,
+    raw,
+    close: () => client.close(),
+  }
+}
+
 async function getDriverAsync(): Promise<Driver> {
   if (cachedDriver) return cachedDriver
   if (driverPromise) return driverPromise
@@ -222,20 +268,4 @@ export async function closeDb() {
     cachedDriver = null
     driverPromise = null
   }
-}
-
-/** Async getter for production code that can await driver initialization. */
-export async function getDriverAsync(): Promise<Driver> {
-  if (cachedDriver) return cachedDriver
-  if (driverPromise) return driverPromise
-
-  driverPromise = (async () => {
-    if (process.env.DTS_DB_DRIVER === "pglite") {
-      return createPgliteDriver()
-    }
-    return createPostgresDriver()
-  })()
-
-  cachedDriver = await driverPromise
-  return cachedDriver
 }
