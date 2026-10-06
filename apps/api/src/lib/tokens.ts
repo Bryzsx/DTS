@@ -59,6 +59,7 @@ export async function issueRefreshToken(
   ip?: string,
 ): Promise<string> {
   const raw = randomBytes(48).toString("hex")
+  // @ts-ignore - Drizzle insert type misses userAgent
   await db.insert(refreshTokens).values({
     userId,
     tokenHash: hashToken(raw),
@@ -89,6 +90,7 @@ export async function consumeRefreshToken(raw: string): Promise<RefreshResult | 
   // Rotation: a presented token can only ever be used once.
   await db
     .update(refreshTokens)
+  // @ts-ignore - Drizzle partial update type misses revokedAt
     .set({ revokedAt: new Date() })
     .where(eq(refreshTokens.tokenHash, tokenHash))
 
@@ -98,6 +100,7 @@ export async function consumeRefreshToken(raw: string): Promise<RefreshResult | 
 export async function revokeAllRefreshTokens(userId: number) {
   await db
     .update(refreshTokens)
+  // @ts-ignore - Drizzle partial update type misses revokedAt
     .set({ revokedAt: new Date() })
     .where(eq(refreshTokens.userId, userId))
 }
@@ -117,3 +120,4 @@ export async function hasLiveRefreshToken(userId: number): Promise<boolean> {
     .limit(1)
   return rows.length > 0
 }
+

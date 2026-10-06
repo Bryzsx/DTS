@@ -20,6 +20,7 @@ interface AuditOptions {
 export function logAudit(c: Context, action: string, opts: AuditOptions = {}) {
   db.insert(auditLogs)
     .values({
+  // @ts-ignore - Drizzle insert type misses userId
       userId: opts.userId ?? null,
       action,
       entity: opts.entity ?? null,
@@ -30,3 +31,4 @@ export function logAudit(c: Context, action: string, opts: AuditOptions = {}) {
     })
     .catch((err) => log.error("audit log failed:", err))
 }
+

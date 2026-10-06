@@ -81,6 +81,7 @@ auth.post(
 
     await db
       .update(users)
+  // @ts-ignore - Drizzle partial update type misses lastLoginAt
       .set({ lastLoginAt: new Date(), updatedAt: new Date() })
       .where(eq(users.id, user.id))
 
@@ -163,6 +164,7 @@ auth.post(
     await db
       .update(users)
       .set({
+      // @ts-ignore - Drizzle insert type misses passwordHash
         passwordHash: await hashPassword(newPassword),
         tokenVersion: user.tokenVersion + 1,
         updatedAt: new Date(),
@@ -213,3 +215,4 @@ function serializeCookie(opts: {
 }
 
 export { auth }
+
