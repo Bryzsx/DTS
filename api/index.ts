@@ -5,12 +5,16 @@
  * `/api/*`. In development the same app runs from `apps/api/src/index.ts`,
  * so the two paths must stay in step.
  *
- * The default export must be a callable `Request -> Response` handler, which is
- * the same shape Hono's own Vercel adapter produces. Exporting the Hono instance
- * directly would hand Vercel an object rather than a handler.
+ * Uses Hono's Vercel adapter which exports named HTTP method handlers
+ * (GET, POST, PUT, PATCH, DELETE, etc.) that Vercel's Node.js runtime expects.
  */
+import { handle } from "hono/vercel"
 import app from "../apps/api/src/index.js"
 
-export default async function handler(request: Request): Promise<Response> {
-  return app.fetch(request)
-}
+export const GET = handle(app)
+export const POST = handle(app)
+export const PUT = handle(app)
+export const PATCH = handle(app)
+export const DELETE = handle(app)
+export const OPTIONS = handle(app)
+export const HEAD = handle(app)
