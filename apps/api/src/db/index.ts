@@ -172,9 +172,6 @@ function initDriverSync(): Driver | null {
 }
 
 // Initialize synchronously for tests; leave null for production (lazy async)
-let cachedDriver: Driver | null = initDriverSync()
-let driverPromise: Promise<Driver> | null = null
-
 async function getDriverAsync(): Promise<Driver> {
   if (cachedDriver) return cachedDriver
   if (driverPromise) return driverPromise
