@@ -11,6 +11,6 @@
  */
 import app from "../apps/api/src/index.js"
 
-export default function handler(request: Request): Promise<Response> {
+export default async function handler(request: Request): Promise<Response> {
   return app.fetch(request)
 }
