@@ -5,7 +5,7 @@ import { eq } from "drizzle-orm"
 import { db } from "../db/index.js"
 import { users } from "../db/schema.js"
 import { authMiddleware, getUserId } from "../middleware/auth.js"
-import { hashPassword, verifyPassword } from "../lib/password.js"
+import { hashPassword, verifyPassword, TIMING_DECOY_HASH } from "../lib/password.js"
 import { logAudit } from "../lib/audit.js"
 import { clientIp, rateLimit } from "../lib/rate-limit.js"
 import {
@@ -190,9 +190,8 @@ auth.post("/logout", async (c) => {
   return c.json({ ok: true })
 })
 
-// Argon2id hash of a random value — used to equalise timing on unknown accounts.
-const DUMMY_HASH =
-  "$argon2id$v=19$m=19456,t=2,p=1$c2FsdHNhbHRzYWx0c2FsdA$QnFuZHVtbXlYb2xEQVJFQUxOR0RBU1RSQUxUVkFMVUU"
+// Real hash of a value nobody knows, spent to equalise timing on unknown accounts.
+const DUMMY_HASH = TIMING_DECOY_HASH
 
 /** Serialises a refresh cookie, clearing it with maxAge 0 when present but invalid. */
 function serializeCookie(opts: {

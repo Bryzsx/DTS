@@ -8,10 +8,13 @@ import { sentryVitePlugin } from "@sentry/vite-plugin"
  * DTS web build.
  *
  * The PWA service worker is deliberately conservative: it caches the app shell
- * and previously-read API responses so a reviewer keeps read access to the
- * register when the connection drops, but it never caches anything that
- * requires authentication to fetch by URL (attachment bytes are already served
- * through an authenticated endpoint and are denied by navigateFallbackDenylist).
+ * and static assets only.
+ *
+ * API responses are never cached. Workbox keys its cache by URL, not by access
+ * token, so a cached `/api/documents` response would be served to the next
+ * person who signs in on the same device — a cross-user data leak. Offline
+ * behaviour is therefore "the shell loads, data needs the network", which is the
+ * correct trade for records that are not public.
  */
 export default defineConfig({
   plugins: [
@@ -67,19 +70,8 @@ export default defineConfig({
             },
           },
           {
-            // Read-only document queries survive a dropped connection briefly so
-            // a reviewer keeps the register on screen while offline.
-            urlPattern: ({ url, request }: { url: URL; request: Request }) =>
-              request.method === "GET" && url.pathname.startsWith("/api/documents"),
-            handler: "NetworkFirst",
-            options: {
-              cacheName: "dts-documents",
-              networkTimeoutSeconds: 4,
-              expiration: { maxEntries: 200, maxAgeSeconds: 7 * 24 * 60 * 60 },
-              cacheableResponse: { statuses: [0, 200] },
-            },
-          },
-          {
+            // Navigation requests only ever return the app shell, which carries
+            // no record data, so caching it is safe.
             urlPattern: ({ request }: { request: Request }) => request.mode === "navigate",
             handler: "NetworkFirst",
             options: {
