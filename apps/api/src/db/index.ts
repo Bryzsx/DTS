@@ -1,4 +1,4 @@
-import { drizzle as drizzlePostgresJs } from "drizzle-orm/postgres-js"
+﻿import { drizzle as drizzlePostgresJs } from "drizzle-orm/postgres-js"
 import type { PostgresJsDatabase } from "drizzle-orm/postgres-js"
 import postgres from "postgres"
 import { dirname, resolve } from "node:path"
@@ -268,5 +268,4 @@ export async function closeDb() {
     cachedDriver = null
     driverPromise = null
   }
-} 
- 
+}
