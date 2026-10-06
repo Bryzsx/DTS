@@ -3,6 +3,7 @@
   "buildCommand": "bun run build",
   "outputDirectory": "apps/web/dist",
   "framework": null,
+  "packageManager": "bun@1.1.0",
   "functions": {
     "api/index.ts": {
       "maxDuration": 60
